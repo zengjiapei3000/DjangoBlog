@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+import markdown
 
 
 class Category(models.Model):
@@ -65,6 +66,20 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         self.modified_time = timezone.now()
+
+        # 首先instance 一个 Markdown 类， 用于渲染 body 的文本。
+        # 由于摘要并不需要生成文章目录， 所以去掉目录拓展 toc。
+        md = markdown.Markdown(extensions=[
+            markdown.extensions.extra',
+            markdown.extensions.codehilite',
+        ])
+
+        # 先将 Markdown 文本渲染成HTML文本
+        # strip_tags 去掉 HTML 文本的全部 HTML 标签
+        # 从文本摘取前 54 个字符赋给 excerpt
+        from django.utils.html import strip_tags
+        self.excerpt = self.body[:54]
+
         super().save(*args, **kwargs)
 
     def __str__(self):
