@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   # 'blog', # 新加的 blog 应用
     'blog.apps.BlogConfig', # 新加的 blog 应用设置
+    'comments.apps.CommentsConfig',    
 ]
 
 MIDDLEWARE = [
