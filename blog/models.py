@@ -63,6 +63,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = '文章'
         verbose_name_plural = verbose_name
+        ordering = ['-created_time']
 
     def save(self, *args, **kwargs):
         self.modified_time = timezone.now()
@@ -87,5 +88,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk': self.pk})
+
+
 
 
