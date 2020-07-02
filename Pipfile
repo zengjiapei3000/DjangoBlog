@@ -9,6 +9,7 @@ fabric = "*"
 [packages]
 django = "==2.2.3"
 markdown = "*"
+faker = "*"
 
 [requires]
 python_version = "3.7"
