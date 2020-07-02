@@ -4,49 +4,80 @@ import markdown
 import re
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
+from django.views.generic import ListView, DetailView
 
 
-def index(request):
-    post_list = Post.objects.all()#.order_by('-created_time')
-    return render(request, 'blog/index.html', context={'post_list': post_list})
+class IndexView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
 
 
-def detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    
-    post.increase_views()
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "blog/detail.html"
+    context_object_name = 'post'
 
-    md = markdown.Markdown(extensions=[
-                    'markdown.extensions.extra',
-                    'markdown.extensions.codehilite',
-                    TocExtension(slugify=slugify),
-    ])
-    post.body = md.convert(post.body)
-    
-    m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
-    post.toc = m.group(1) if m is not None else ''
+    def get(self, request, *args, **kwargs):
+        """
+        覆写 get 原因: 为了获取 self.object 属性, 完成
+                阅读量统计 +1 的功能.
+        先调用 super().get 原因: 只有 get 方法被调用后, 
+                才有self.object 属性, self.object 即 
+                Post 的实例 post.  
+        """
+        response = super().get(request, *args, **kwargs)
+        self.object.increase_views()
+        return response
 
-    return render(request, 'blog/detail.html', context={'post': post})
+    def get_object(self, queryset=None):
+        """
+        覆写 get_object 方法的目的： 需要对 post.body 值进行渲染. 
+        """
+        post = super().get_object(queryset=None)
+        md = markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            TocExtension(slugify=slugify),
+        ])
+        post.body = md.convert(post.body)
+
+        m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
+        post.toc = m.group(1) if m is not None else ''
+        return post
 
 
-def archive(request, year, month):
-    post_list = Post.objects.filter(
-        created_time__year=year,
-        created_time__month=month)#.order_by('-created_time')
-    return render(request, 'blog/index.html', context={'post_list': post_list})
+class ArchiveView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
+        year = self.kwargs.get("year")
+        month = self.kwargs.get("month")
+        return super().get_queryset().filter(created_time__year=year,
+                                             created_time__month=month)
 
 
-def category(request, pk):
-    cate = get_object_or_404(Category, pk=pk)
-    post_list = Post.objects.filter(
-        category=cate)#.order_by('-created_time')
-    return render(request, 'blog/index.html', context={'post_list': post_list})
+class CategoryView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
+        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
+        return super().get_queryset().filter(category=cate)
 
 
-def tag(request, pk):
-    t = get_object_or_404(Tag, pk=pk)
-    post_list = Post.objects.filter(tag=t)#.order_by('-created_time')
-    return render(request, 'blog/index.html', context={'post_list': post_list})
-    
+class TagView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
+        t = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
+        return super(TagView, self).get_queryset().filter(tag=t)
+
+
 
     

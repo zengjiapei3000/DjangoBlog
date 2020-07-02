@@ -31,7 +31,6 @@ class Tag(models.Model):
     再次强调一定要继承 models.Model 类！
     """
     name = models.CharField(max_length=100)
-    #post = models.ManyToManyField(Post, related_name='tag', null=True)
 
     class Meta:
         verbose_name = '标签'
@@ -39,6 +38,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
 
 
 class Post(models.Model):
