@@ -1,16 +1,20 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Post, Category, Tag
-import markdown
 import re
-from django.utils.text import slugify
+
+import markdown
 from markdown.extensions.toc import TocExtension
+from .models import Post, Category, Tag
+from django.shortcuts import render, get_object_or_404
+from django.utils.text import slugify
 from django.views.generic import ListView, DetailView
+import django.core.paginator
 
 
 class IndexView(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
+
+    paginate_by = 10
 
 
 class PostDetailView(DetailView):
@@ -35,11 +39,12 @@ class PostDetailView(DetailView):
         覆写 get_object 方法的目的： 需要对 post.body 值进行渲染. 
         """
         post = super().get_object(queryset=None)
-        md = markdown(extensions=[
+        md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
             TocExtension(slugify=slugify),
         ])
+            
         post.body = md.convert(post.body)
 
         m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)

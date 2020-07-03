@@ -19,17 +19,18 @@
 
 ## TODO list:
 
-:white_check_mark: ~~完全汉化, 包括 admin;~~ 
-:white_check_mark: ~~博客支持 Markdown 语法和代码高亮;~~
-:white_check_mark: ~~Markdown 文章自动生成目录;~~
-:white_check_mark: ~~自动生成文章摘要;~~
-:white_check_mark: ~~侧边栏: 使用自定义模板标签;~~
-:white_check_mark: ~~分类、归档、标签;~~
-:white_check_mark: ~~评论功能;~~
-:white_check_mark: ~~脚本中使用 ORM:Faker 批量生成测试数据;~~
-分页;
-统计各个分类和标签下文章数;
-RSS;
-全文搜索;
-单元测试;
-统计测试覆盖率;
+1.  :ballot_box_with_check: ~~完全汉化, 包括 admin;~~ 
+2.  :ballot_box_with_check: ~~博客支持 Markdown 语法和代码高亮;~~
+3.  :ballot_box_with_check: ~~Markdown 文章自动生成目录;~~
+4.  :ballot_box_with_check: ~~自动生成文章摘要;~~
+5.  :ballot_box_with_check: ~~侧边栏: 使用自定义模板标签;~~
+6.  :ballot_box_with_check: ~~分类、归档、标签;~~
+7.  :ballot_box_with_check: ~~评论功能;~~
+8.  :ballot_box_with_check: ~~脚本中使用 ORM:Faker 批量生成测试数据;~~
+9.  :ballot_box_with_check: ~~简单分页;~~
+10. 分页;
+11. 统计各个分类和标签下文章数;
+12. RSS;
+13. 全文搜索;
+14. 单元测试;
+15. 统计测试覆盖率;
