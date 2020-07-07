@@ -1,19 +1,18 @@
 import re
 
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView
+from django.utils.text import slugify
+from .models import Post, Category, Tag
 import markdown
 from markdown.extensions.toc import TocExtension
-from .models import Post, Category, Tag
-from django.shortcuts import render, get_object_or_404
-from django.utils.text import slugify
-from django.views.generic import ListView, DetailView
-import django.core.paginator
+from pure_pagination.mixins import PaginationMixin
 
 
-class IndexView(ListView):
+class IndexView(PaginationMixin, ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
-
     paginate_by = 10
 
 
@@ -44,7 +43,6 @@ class PostDetailView(DetailView):
             'markdown.extensions.codehilite',
             TocExtension(slugify=slugify),
         ])
-            
         post.body = md.convert(post.body)
 
         m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)

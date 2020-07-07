@@ -15,6 +15,8 @@
    按日期归档、分类、标签云;
 5. 文章详情页的评论功能;
 6. 文章阅读量统计功能;
+7. 使用 Faker 模块批量生成测试数据;
+8. 使用第三方应用 django-pure-pagination 实现分页效果;
 
 
 ## TODO list:
@@ -28,7 +30,7 @@
 7.  :ballot_box_with_check: ~~评论功能;~~
 8.  :ballot_box_with_check: ~~脚本中使用 ORM:Faker 批量生成测试数据;~~
 9.  :ballot_box_with_check: ~~简单分页;~~
-10. 分页;
+10. :ballot_box_with_check:~~完整的分页效果;~~
 11. 统计各个分类和标签下文章数;
 12. RSS;
 13. 全文搜索;
