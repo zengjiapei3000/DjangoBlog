@@ -2,8 +2,9 @@
 
 ## 运行环境：
 
-  虚拟环境： 'pipenv'
-  Django版本： 'django2.2.3'
+  虚拟环境：  'pipenv'
+  Django版本：'django2.2.3'
+  版本控制:   'git'
 
 
 ## 已实现功能：
