@@ -1,13 +1,13 @@
 [[source]]
 name = "pypi"
-url = "http://mirrors.aliyun.com/pypi/simple/"
+url = "https://mirrors.aliyun.com/pypi/simple/"
 verify_ssl = true
 
 [dev-packages]
 fabric = "*"
 
 [packages]
-django = "==2.2.3"
+django = ">=2.2.3,<2.3"
 markdown = "*"
 faker = "*"
 django-pure-pagination = "*"
