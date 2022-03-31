@@ -17,7 +17,7 @@
 6. 运行 `python -m manage runserver` 来在本地运行 DjangoBlog 项目.
 
 ## 结束使用:
-1. 如果上面 ## 使用 的步骤6的本地的服务器还在运行, 先 CTRL+C 结束运行.
+1. 如果上面的步骤6的本地的服务器还在运行, 先 CTRL+C 结束运行.
 2. 再 `exit` 退出 pipenv 的虚拟环境.
 
 ---
