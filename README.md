@@ -10,8 +10,8 @@
 
 1. `git clone https://github.com/zengjiapei3000/DjangoBlog.git`
 2. `cd DjangoBlog`
-3. 运行 `pipenv verify` to verify the `Pipfile.lock` 是否过时, 如果过时, 
-   运行 `pipenv lock` 来更新; 如果没有过时, 去到步骤4.
+3. 运行 `pipenv verify` 来验证 `Pipfile.lock` 是否过时, 
+   如果过时, 运行 `pipenv lock` 来更新; 如果没有过时, 去到步骤4.
 4. 运行 `pipenv sync` 来安装 所有在 Pipfile.lock 里指定的包.
 5. 运行 `pipenv shell` 来进入 pipenv 虚拟环境, 此时命令行应该形如 `(DjangoBlog) {user}@{hostname}` 的格式, 说明此时进入虚拟环境成功.
 6. 运行 `python -m manage runserver` 来在本地运行 DjangoBlog 项目.
